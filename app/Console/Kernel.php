@@ -24,8 +24,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('scrape:authenticjobs')->everyFiveMinutes();
+        $schedule->command('scrape:jobmote')->everyFiveMinutes();
+        $schedule->command('scrape:larajobs')->everyFiveMinutes();
     }
 
     /**
