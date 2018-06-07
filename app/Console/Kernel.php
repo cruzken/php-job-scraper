@@ -24,11 +24,13 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('scrape:authenticjobs')->hourly()->appendOutputTo('storage/logs/scraper.txt');
-        $schedule->command('scrape:jobmote')->hourly()->appendOutputTo('storage/logs/scraper.txt');
-        $schedule->command('scrape:larajobs')->hourly()->appendOutputTo('storage/logs/scraper.txt');
-        $schedule->command('scrape:indeed')->hourly()->appendOutputTo('storage/logs/scraper.txt');
-        $schedule->command('scrape:freelancermap')->hourly()->appendOutputTo('storage/logs/scraper.txt');
+        $scrapeLog = 'storage/logs/scraper.txt'
+            
+        $schedule->command('scrape:authenticjobs')->everyMinute()->appendOutputTo($scrapeLog);
+        $schedule->command('scrape:jobmote')->everyMinute()->appendOutputTo($scrapeLog);
+        $schedule->command('scrape:larajobs')->everyMinute()->appendOutputTo($scrapeLog);
+        $schedule->command('scrape:indeed')->everyMinute()->appendOutputTo($scrapeLog);
+        $schedule->command('scrape:freelancermap')->everyMinute()->appendOutputTo($scrapeLog);
     }
 
     /**
