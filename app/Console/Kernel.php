@@ -28,6 +28,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('scrape:jobmote')->hourly()->appendOutputTo('storage/logs/scraper.txt');
         $schedule->command('scrape:larajobs')->hourly()->appendOutputTo('storage/logs/scraper.txt');
         $schedule->command('scrape:indeed')->hourly()->appendOutputTo('storage/logs/scraper.txt');
+        $schedule->command('scrape:freelancermap')->hourly()->appendOutputTo('storage/logs/scraper.txt');
     }
 
     /**
