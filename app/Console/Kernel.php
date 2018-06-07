@@ -24,9 +24,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('scrape:authenticjobs')->everyFiveMinutes();
-        $schedule->command('scrape:jobmote')->everyFiveMinutes();
-        $schedule->command('scrape:larajobs')->everyFiveMinutes();
+        $schedule->command('scrape:authenticjobs')->hourly()->appendOutputTo('storage/logs/scraper.txt');
+        $schedule->command('scrape:jobmote')->hourly()->appendOutputTo('storage/logs/scraper.txt');
+        $schedule->command('scrape:larajobs')->hourly()->appendOutputTo('storage/logs/scraper.txt');
+        $schedule->command('scrape:indeed')->hourly()->appendOutputTo('storage/logs/scraper.txt');
     }
 
     /**

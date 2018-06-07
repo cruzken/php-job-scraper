@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Carbon;
 use App\JobPosting;
 
 class Scrape extends Command
@@ -63,7 +64,8 @@ class Scrape extends Command
             
         }
         
-        echo "Done Storing {$uniqueJobs} Job Postings\n";
+        $time = Carbon::now();
+        echo "\nDone Storing {$uniqueJobs} Job Postings at {$time}";
         
         
     }
