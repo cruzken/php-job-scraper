@@ -24,7 +24,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $scrapeLog = 'storage/logs/scraper.txt'
+        $scrapeLog = 'storage/logs/scraper.txt';
             
         $schedule->command('scrape:authenticjobs')->everyMinute()->appendOutputTo($scrapeLog);
         $schedule->command('scrape:jobmote')->everyMinute()->appendOutputTo($scrapeLog);
