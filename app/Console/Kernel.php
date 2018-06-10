@@ -4,6 +4,11 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use App\Jobs\ScrapeAuthenticJob;
+use App\Jobs\ScrapeLarajobsJob;
+use App\Jobs\ScrapeFreelancermapJob;;
+use App\Jobs\ScrapeIndeedJob;
+use App\Jobs\ScrapeJobmoteJob;
 
 class Kernel extends ConsoleKernel
 {
@@ -24,13 +29,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $scrapeLog = 'storage/logs/scraper.txt';
-            
-        $schedule->command('scrape:authenticjobs')->everyMinute()->appendOutputTo($scrapeLog);
-        $schedule->command('scrape:jobmote')->everyMinute()->appendOutputTo($scrapeLog);
-        $schedule->command('scrape:larajobs')->everyMinute()->appendOutputTo($scrapeLog);
-        $schedule->command('scrape:indeed')->everyMinute()->appendOutputTo($scrapeLog);
-        $schedule->command('scrape:freelancermap')->everyMinute()->appendOutputTo($scrapeLog);
+        $schedule->job(new ScrapeLarajobsJob)->everyTenMinutes();
+        $schedule->job(new ScrapeJobmoteJob)->everyTenMinutes();
+        $schedule->job(new ScrapeIndeedJob)->everyTenMinutes();
+        $schedule->job(new ScrapeFreelancermapJob)->everyTenMinutes();
+        $schedule->job(new ScrapeAuthenticJob)->everyTenMinutes();
     }
 
     /**

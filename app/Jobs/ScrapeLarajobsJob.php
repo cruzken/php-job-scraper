@@ -1,44 +1,29 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Jobs;
 
-use Illuminate\Console\Command;
-use App\Console\Commands\Scrape;
+use App\Jobs\ScrapeJob;
 
-class ScrapeLarajobs extends Scrape
+class ScrapeLarajobsJob extends Scrapejob
 {
     /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'scrape:larajobs';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Scrape Job Postings at Larajobs';
-
-    /**
-     * Create a new command instance.
+     * Create a new job instance.
      *
      * @return void
      */
     public function __construct()
     {
-        parent::__construct();
+        //
     }
 
     /**
-     * Execute the console command.
+     * Execute the job.
      *
-     * @return mixed
+     * @return void
      */
     public function handle()
     {
-        //
+         //
         $scrapeUrl = env('SCRAPE_LARAJOBS_URL');
         $xpath = $this->xpath($scrapeUrl);
         
@@ -51,7 +36,7 @@ class ScrapeLarajobs extends Scrape
 
                 $title    = $this->singleQuery($xpath, './/div[@class="job-wrap"]/div[@class="details"]/div[@class="description"]', $row);
                 $company  = $this->singleQuery($xpath, './/div[@class="job-wrap"]/div[@class="details"]/h4', $row);
-                $company = preg_replace("/NEW\s+/", "", $company);
+                $company  = preg_replace("/NEW\s+/", "", $company);
                 $location = $this->singleQuery($xpath, './/div[@class="job-wrap"]/div[@style="font-size: small;"]', $row);
                 $link     = $row->getAttribute("data-url");
 
@@ -60,9 +45,6 @@ class ScrapeLarajobs extends Scrape
                 $data[] = $this->trim_map($entry);
             }
         }
-        
         $this->storeJobs($data);
-        
     }
-    
 }

@@ -15,6 +15,10 @@ class CreateJobPostingsTable extends Migration
     {
         Schema::create('job_postings', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('title');
+            $table->string('company');
+            $table->string('location');
+            $table->string('link')->unique();
             $table->timestamps();
         });
     }

@@ -1,44 +1,29 @@
 <?php
 
-namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-use App\Console\Commands\Scrape;
+namespace App\Jobs;
 
-class ScrapeJobmote extends Scrape
+use App\Jobs\ScrapeJob;
+
+class ScrapeJobmoteJob extends ScrapeJob
 {
     /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'scrape:jobmote';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Scrape Job Postings at Jobmote';
-
-    /**
-     * Create a new command instance.
+     * Create a new job instance.
      *
      * @return void
      */
     public function __construct()
     {
-        parent::__construct();
+        //
     }
 
     /**
-     * Execute the console command.
+     * Execute the job.
      *
-     * @return mixed
+     * @return void
      */
     public function handle()
     {
-        //
         $scrapeUrl = env('SCRAPE_JOBMOTE_URL') . env('SCRAPE_JOBMOTE_QUERY');
         $xpath = $this->xpath($scrapeUrl);
         
@@ -62,7 +47,6 @@ class ScrapeJobmote extends Scrape
         }
         
         $this->storeJobs($data);
-        
     }
-    
 }
+

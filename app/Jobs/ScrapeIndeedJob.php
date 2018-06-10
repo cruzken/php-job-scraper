@@ -1,40 +1,25 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Jobs;
 
-use Illuminate\Console\Command;
-use App\Console\Commands\Scrape;
+use App\Jobs\ScrapeJob;
 
-class ScrapeIndeed extends Scrape
+class ScrapeIndeedJob extends ScrapeJob
 {
     /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'scrape:indeed';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Scrape Job Postings at Indeed';
-
-    /**
-     * Create a new command instance.
+     * Create a new job instance.
      *
      * @return void
      */
     public function __construct()
     {
-        parent::__construct();
+        //
     }
 
     /**
-     * Execute the console command.
+     * Execute the job.
      *
-     * @return mixed
+     * @return void
      */
     public function handle()
     {

@@ -1,49 +1,41 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Jobs;
 
-use Illuminate\Console\Command;
+use Illuminate\Bus\Queueable;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Support\Carbon;
 use App\JobPosting;
+use Illuminate\Support\Facades\Log;
 
-class Scrape extends Command
+class ScrapeJob implements ShouldQueue
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'scrape';
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Abstract placeholder';
-
-    /**
-     * Create a new command instance.
+     * Create a new job instance.
      *
      * @return void
      */
     public function __construct()
     {
-        parent::__construct();
+        //
     }
-
+    
+    public $tries = 1;
     /**
-     * Execute the console command.
+     * Execute the job.
      *
-     * @return mixed
+     * @return void
      */
     public function handle()
     {
         //
     }
-    
-    
-    
+
     protected function storeJobs($data)  
     {
         $uniqueJobs = 0;
@@ -65,9 +57,9 @@ class Scrape extends Command
         }
         
         $time = Carbon::now();
-        echo "\nDone Storing {$uniqueJobs} Job Postings at {$time}";
-        
-        
+        $scrapeLog = 'storage/logs/scraper.txt';
+        $className = get_class($this);
+        Log::info("\nDone Storing {$uniqueJobs} {$className} Job Postings at {$time}");        
     }
     
     protected function xpath($url)
@@ -109,4 +101,7 @@ class Scrape extends Command
         } 
         return $array;
     }
+
+
+
 }
