@@ -59,7 +59,8 @@ class ScrapeJob implements ShouldQueue
         $time = Carbon::now();
         $scrapeLog = 'storage/logs/scraper.txt';
         $className = get_class($this);
-        Log::info("\nDone Storing {$uniqueJobs} {$className} Job Postings at {$time}");        
+        $jobCount = count($data);
+        Log::info("\n {$className} Done Storing {$uniqueJobs} of {$jobCount} Job Postings at {$time}");        
     }
     
     protected function xpath($url)
