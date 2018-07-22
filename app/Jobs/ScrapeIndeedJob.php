@@ -35,7 +35,7 @@ class ScrapeIndeedJob extends ScrapeJob
             foreach ($ahref_row as $row) {
 
                 $title    = $this->singleQuery($xpath, 'h2[@class="jobtitle"]', $row);
-                $company  = $this->singleQuery($xpath, 'span[@class="company"]', $row);
+                $company  = $this->singleQuery($xpath, '//span[@class="company"]', $row);
                 $location = $this->singleQuery($xpath, 'span[@class="location"]', $row);
                 $date     = $this->singleQuery($xpath, './/span[@class="date"]', $row);
                 $date     = preg_replace('/.+?\s·\s/', '', $date);
